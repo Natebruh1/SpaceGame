@@ -7,7 +7,7 @@
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
 #include <iostream>
-
+#include <algorithm>
 #include "texture.h"
 #include "shader.h"
 #include "node2d.h"
@@ -42,6 +42,7 @@ public:
     void addVertex(int addVert[3]);
     void addVertex(int* addVert, int size);
     void addVertex(std::vector<int>* pushV);
+    void replaceVertex(std::vector<int>* pattern);
 private:
     // Render state
     Shader       shader;

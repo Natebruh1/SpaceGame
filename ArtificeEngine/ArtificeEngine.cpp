@@ -129,6 +129,9 @@ void render()
 
     // ADD STUFF HERE
     currentScene->call("render");
+    terrain* d = dynamic_cast<terrain*>(currentScene);
+    block b = { 0,0,2 };
+    d->blockUpdate(glm::ivec2(0,0), b);
 }
 
 

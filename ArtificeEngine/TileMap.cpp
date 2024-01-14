@@ -129,8 +129,39 @@ void TileMap::addVertex(std::vector<int>* pushV)
     
     initRenderData();
 }
+void TileMap::replaceVertex(std::vector<int>* pattern)
+{
+    std::vector<int> p = *pattern;
+    
+    int res = 0;
+    while (p[0]!=verticesToPass[res] or p[1] != verticesToPass[res+1])
+    {
+        
+        std::cout << res << std::endl;
+        res+=3;
+        if (res >= static_cast<int>(verticesToPass.size()))
+        {
+            break;
+        }
+    }
+    if (res >= static_cast<int>(verticesToPass.size()))
+    {
+        std::cout << "Pattern not Found" << std::endl;
+    }
+    else
+    {
+        std::cout << "UPDATING BLOCK" << std::endl;
+        verticesToPass[res] = p[0];
+        verticesToPass[res+1] = p[1];
+        verticesToPass[res + 2] = p[2];
+        std::cout << verticesToPass[res] << verticesToPass[res+1] << verticesToPass[res+2] << std::endl;
+    }
+    
+    initRenderData();
+}
 void TileMap::initRenderData()
 {
+    //std::cout << "Updating TileMap" << std::endl;
     // configure VAO/VBO
     unsigned int VBO;
     

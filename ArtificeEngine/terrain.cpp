@@ -67,3 +67,9 @@ void terrain::chunkUpdate()
 	map->addVertex(vData);
 	delete vData;
 }
+
+void terrain::blockUpdate(glm::ivec2 coords, block b)
+{
+	blocks[coords.x][coords.y] = b;
+	map->replaceVertex(b.returnVertex());
+}
