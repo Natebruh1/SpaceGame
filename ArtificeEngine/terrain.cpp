@@ -7,7 +7,7 @@ terrain::terrain()
 	map->setTexture(ResourceManager::GetTexture("tiles"));
 	add_child(map);
 	blocks = new block*[CHUNK_SIZE];
-	std::vector<int> vData;
+	std::vector<int>* vData = new std::vector<int>;
 	for (int i = 0; i < CHUNK_SIZE; i++)
 	{
 		blocks[i] = new block[CHUNK_SIZE];
@@ -19,14 +19,15 @@ terrain::terrain()
 
 			for (int k : *(blocks[i][j].returnVertex()))
 			{
-				vData.push_back(k);
+				vData->push_back(k);
 			}
 			
 			
 			
 		}
 	}
-	map->addVertex(&vData);
+	map->addVertex(vData);
+	delete vData;
 }
 
 terrain::~terrain()
@@ -41,4 +42,28 @@ terrain::~terrain()
 void terrain::render()
 {
 	map->render();
+}
+
+void terrain::chunkUpdate()
+{
+	std::vector<int>* vData = new std::vector<int>;
+	for (int i = 0; i < CHUNK_SIZE; i++)
+	{
+		
+
+		for (int j = 0; j < CHUNK_SIZE; j++)
+		{
+			
+
+			for (int k : *(blocks[i][j].returnVertex()))
+			{
+				vData->push_back(k);
+			}
+
+
+
+		}
+	}
+	map->addVertex(vData);
+	delete vData;
 }

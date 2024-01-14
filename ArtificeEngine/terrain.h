@@ -39,6 +39,7 @@ public:
     block** blocks;
     void render() override;
     
+    void chunkUpdate();
 private:
     TileMap* map;
     glm::ivec2 chunkID;
