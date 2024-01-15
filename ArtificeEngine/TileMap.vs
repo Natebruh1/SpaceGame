@@ -16,6 +16,7 @@ void main()
     float x = float(aTileId.x) * float(mapSize.x); 
     float y = float(aTileId.y) * float(mapSize.y); 
     gl_Position =model * vec4(x, y, 0, 1);
+    
     //gl_Position = vec4(0, 0, 0, 1);
     
     vs_out.tileId = aTileId;

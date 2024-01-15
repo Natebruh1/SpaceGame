@@ -17,24 +17,27 @@ void main() {
     float tileY = float(gs_in[0].tileId.y / 16.0);
 
     float texX= float(mod(gs_in[0].tileId.z,16))/16.0;
-    float texY= float(gs_in[0].tileId.z/16)/16.0;
+    float texY= float(gs_in[0].tileId.z/16.0)/16.0;
 
     const float B = 1.0 / 256.0;
     float S = 1.0 / 16.0;
 
     gl_Position = projection * gl_in[0].gl_Position;
     texCoord = vec2(texX + B, texY + B);
-   // texCoord = vec2(texX, texY);
+    
+    // texCoord = vec2(texX, texY);
     EmitVertex();
 
     gl_Position = projection * (gl_in[0].gl_Position + (model*vec4(16.0, 0.0, 0.0, 0.0)));
     texCoord = vec2(texX + S - B, texY + B);
     //texCoord = vec2(texX, texY);
+    
     EmitVertex();
 
     gl_Position = projection * (gl_in[0].gl_Position + (model*vec4(0.0, 16.0, 0.0, 0.0)));
     texCoord = vec2(texX + B, texY + S - B);
     //texCoord = vec2(texX, texY);
+    
     EmitVertex();
 
     gl_Position = projection * (gl_in[0].gl_Position + (model*vec4(16.0, 16.0, 0.0, 0.0)));

@@ -12,18 +12,18 @@
 #include "ResourceManager.h"
 #include <stdlib.h> 
 #include "TileMap.h"
-const int CHUNK_SIZE = 64;
+const int CHUNK_SIZE = 4;
 struct block
 {
     int x=0;
     int y=0;
-    int tile = 0;
+    int tile = 1;
     std::vector<int>* returnVertex()
     {
         std::vector<int>* ret = new std::vector<int>();
         ret->push_back(x);
         ret->push_back(y);
-        ret->push_back(rand()%3);
+        ret->push_back(tile);
         return ret;
     }
 };

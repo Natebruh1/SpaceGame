@@ -3,6 +3,7 @@
 terrain::terrain()
 {
 	chunkID = glm::ivec2(0, 0);
+	if (map) delete map;
 	map = new TileMap();
 	map->setTexture(ResourceManager::GetTexture("tiles"));
 	add_child(map);
@@ -70,6 +71,8 @@ void terrain::chunkUpdate()
 
 void terrain::blockUpdate(glm::ivec2 coords, block b)
 {
+	b.x = coords.x;
+	b.y = coords.y;
 	blocks[coords.x][coords.y] = b;
 	map->replaceVertex(b.returnVertex());
 }

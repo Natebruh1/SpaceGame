@@ -128,10 +128,9 @@ void render()
 
 
     // ADD STUFF HERE
+    
+    
     currentScene->call("render");
-    terrain* d = dynamic_cast<terrain*>(currentScene);
-    block b = { 0,0,2 };
-    d->blockUpdate(glm::ivec2(0,0), b);
 }
 
 
@@ -167,5 +166,8 @@ void initGame()
     d->position = glm::vec2(100.0, 100.0);
     d->add_child(s);
     
-    
+    block b = { 1,0,0 };
+    d->blockUpdate(glm::ivec2(0, 0), b);
+    currentScene = d;
+    d->position = glm::vec2(200.0, 100.0);
 }

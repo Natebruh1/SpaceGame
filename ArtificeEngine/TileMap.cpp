@@ -73,7 +73,7 @@ void TileMap::render()
         internalTexture->Bind();
 
         glBindVertexArray(this->quadVAO);
-        glDrawArrays(GL_POINTS, 0, verticesToPass.size());
+        glDrawArrays(GL_POINTS, 0, (verticesToPass.size()/3));
         glBindVertexArray(0);
 
         GLenum err = glGetError();
@@ -154,7 +154,7 @@ void TileMap::replaceVertex(std::vector<int>* pattern)
         verticesToPass[res] = p[0];
         verticesToPass[res+1] = p[1];
         verticesToPass[res + 2] = p[2];
-        std::cout << verticesToPass[res] << verticesToPass[res+1] << verticesToPass[res+2] << std::endl;
+        std::cout <<res<<" : " << verticesToPass[res] << verticesToPass[res + 1] << verticesToPass[res + 2] << std::endl;
     }
     
     initRenderData();
@@ -167,6 +167,8 @@ void TileMap::initRenderData()
     
     if (verticesToPass.size() > 0)
     {
+        std::cout << "First Tile : " << verticesToPass[verticesToPass.front()] << verticesToPass[verticesToPass.front() + 1] << verticesToPass[verticesToPass.front() + 2] << std::endl;
+        //std::cout << verticesToPass[2] << std::endl;
         glGenVertexArrays(1, &this->quadVAO);
         glGenBuffers(1, &VBO);
 
