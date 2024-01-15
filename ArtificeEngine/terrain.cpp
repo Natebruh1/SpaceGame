@@ -12,11 +12,16 @@ terrain::terrain()
 	for (int i = 0; i < CHUNK_SIZE; i++)
 	{
 		blocks[i] = new block[CHUNK_SIZE];
-
+		int height = currentWorld->genHeight(i+(64*chunkID.x));
 		for (int j = 0; j < CHUNK_SIZE; j++)
 		{
 			blocks[i][j].x=i;
 			blocks[i][j].y = j;
+
+			if (j <= height)
+			{
+				blocks[i][j].tile = 4;
+			}
 
 			for (int k : *(blocks[i][j].returnVertex()))
 			{

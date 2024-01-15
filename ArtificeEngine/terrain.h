@@ -1,5 +1,6 @@
 #pragma once
 #include "node2d.h"
+#include "world.h"
 
 #include <string>
 #include <map>
@@ -12,12 +13,12 @@
 #include "ResourceManager.h"
 #include <stdlib.h> 
 #include "TileMap.h"
-const int CHUNK_SIZE = 4;
+const int CHUNK_SIZE = 64;
 struct block
 {
     int x=0;
     int y=0;
-    int tile = 1;
+    int tile = 0;
     std::vector<int>* returnVertex()
     {
         std::vector<int>* ret = new std::vector<int>();
@@ -43,6 +44,6 @@ public:
     void blockUpdate(glm::ivec2 coords, block b);
 private:
     TileMap* map;
-    glm::ivec2 chunkID;
+    glm::ivec2 chunkID=glm::ivec2(0,0);
 };
 

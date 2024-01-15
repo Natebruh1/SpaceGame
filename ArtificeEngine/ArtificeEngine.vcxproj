@@ -143,8 +143,10 @@
     <ClCompile Include="terrain.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FastNoiseLite.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="node.h" />
     <ClInclude Include="node2d.h" />
@@ -154,6 +156,7 @@
     <ClInclude Include="terrain.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="world.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="sprite.frag" />

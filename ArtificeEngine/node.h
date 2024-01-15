@@ -51,7 +51,7 @@ private:
 
 	//Abstract
 public:
-	virtual void render() = 0;
+	virtual void render();
 	virtual void input(int key, int scancode, int action, int mods);
 	virtual void input(int button, int action, int mods);
 	

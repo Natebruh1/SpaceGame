@@ -54,6 +54,10 @@ void node::update()
 {
 }
 
+void node::render()
+{
+}
+
 void node::input(int key, int scancode, int action, int mods)
 {
 }
