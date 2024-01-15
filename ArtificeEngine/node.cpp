@@ -53,3 +53,11 @@ void node::set_parent(node* pRef)
 void node::update()
 {
 }
+
+void node::input(int key, int scancode, int action, int mods)
+{
+}
+
+void node::input(int button, int action, int mods)
+{
+}

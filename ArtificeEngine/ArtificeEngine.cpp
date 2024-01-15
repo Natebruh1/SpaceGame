@@ -14,22 +14,32 @@
 
 #include "ResourceManager.h"
 #include "Shader.h"
+#include "globals.h"
+#include <vector>
+#include <algorithm>
+
 GLFWwindow* window;
-node* currentScene;
+
+terrain* d;
 glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
 void init();
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+void cursor_callback(GLFWwindow* window, int button, int action, int mods);
 
 void render();
 void pollEvents();
 void input(GLFWwindow* currentContext);
 
 void initGame();
+std::vector<node*>* GetSceneNodes();
 
 int main()
 {
     //Initialise
     init();
+    
     while (!glfwWindowShouldClose(window))
     {
         input(window);
@@ -86,6 +96,8 @@ void init()
 
     //Add callback for resizing window
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwSetKeyCallback(window, key_callback);
+
     //GAME SPECIFIC
     
 
@@ -116,7 +128,21 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     glViewport(0, 0, width, height);
 }
 
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    for (auto n : *GetSceneNodes())
+    {
+        n->input(key, scancode, action, mods);
+    }
+}
 
+void cursor_callback(GLFWwindow* window, int button, int action, int mods)
+{
+    for (auto n : *GetSceneNodes())
+    {
+        n->input(button,action,mods);
+    }
+}
 
 void render()
 {
@@ -144,11 +170,22 @@ void pollEvents()
 
 void input(GLFWwindow* currentContext)
 {
+    //UPDATE MOUSE POSITION
+    glfwGetCursorPos(window, &mouseX, &mouseY);
+
+
     //Close the Window
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    {
+        block b = { 1,0,4 };
+        d->blockUpdate(glm::ivec2(0, 0), b);
+    }
+      
 
     //Pass Input to children
+
 }
 
 
@@ -160,7 +197,7 @@ void initGame()
     s->position = glm::vec2(100.0, 100.0);
 
 
-    terrain* d = new terrain();
+    d = new terrain();
     
     currentScene = d;
     d->position = glm::vec2(100.0, 100.0);
@@ -170,4 +207,29 @@ void initGame()
     d->blockUpdate(glm::ivec2(0, 0), b);
     currentScene = d;
     d->position = glm::vec2(200.0, 100.0);
+}
+
+std::vector<node*>* GetSceneNodes()
+{
+    std::vector<node*>* workingTree = new std::vector<node*>();
+    std::vector<node*> searched;
+    workingTree->push_back(currentScene);
+    while (workingTree->size() != searched.size())
+    {
+        for (auto n : *workingTree)
+        {
+            if (std::find(searched.begin(), searched.end(), n) == searched.end())
+            {
+                std::vector<node*>* search = n->get_children();
+                workingTree->insert(workingTree->end(), search->begin(), search->end());
+                searched.push_back(n);
+            }
+            
+            
+        }
+        
+
+    }
+    
+    return workingTree;
 }

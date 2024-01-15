@@ -8,6 +8,7 @@
 #include <gtc/matrix_transform.hpp>
 #include <iostream>
 #include <stdlib.h> 
+#include "globals.h"
 #include "ResourceManager.h"
 // Welcome to the default class
 // everything displayed in the game tree comes from here
@@ -51,6 +52,8 @@ private:
 	//Abstract
 public:
 	virtual void render() = 0;
+	virtual void input(int key, int scancode, int action, int mods);
+	virtual void input(int button, int action, int mods);
 	
 };
 

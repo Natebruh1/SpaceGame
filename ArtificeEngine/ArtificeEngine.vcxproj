@@ -134,6 +134,7 @@
   <ItemGroup>
     <ClCompile Include="ArtificeEngine.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="globals.cpp" />
     <ClCompile Include="node.cpp" />
     <ClCompile Include="node2d.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
@@ -144,6 +145,7 @@
     <ClCompile Include="TileMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="globals.h" />
     <ClInclude Include="node.h" />
     <ClInclude Include="node2d.h" />
     <ClInclude Include="ResourceManager.h" />

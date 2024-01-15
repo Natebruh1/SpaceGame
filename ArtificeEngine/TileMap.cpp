@@ -137,7 +137,7 @@ void TileMap::replaceVertex(std::vector<int>* pattern)
     while (p[0]!=verticesToPass[res] or p[1] != verticesToPass[res+1])
     {
         
-        std::cout << res << std::endl;
+        //std::cout << res << std::endl;
         res+=3;
         if (res >= static_cast<int>(verticesToPass.size()))
         {
@@ -146,15 +146,15 @@ void TileMap::replaceVertex(std::vector<int>* pattern)
     }
     if (res >= static_cast<int>(verticesToPass.size()))
     {
-        std::cout << "Pattern not Found" << std::endl;
+        //std::cout << "Pattern not Found" << std::endl;
     }
     else
     {
-        std::cout << "UPDATING BLOCK" << std::endl;
+        //std::cout << "UPDATING BLOCK" << std::endl;
         verticesToPass[res] = p[0];
         verticesToPass[res+1] = p[1];
         verticesToPass[res + 2] = p[2];
-        std::cout <<res<<" : " << verticesToPass[res] << verticesToPass[res + 1] << verticesToPass[res + 2] << std::endl;
+        //std::cout <<res<<" : " << verticesToPass[res] << verticesToPass[res + 1] << verticesToPass[res + 2] << std::endl;
     }
     
     initRenderData();
@@ -167,7 +167,7 @@ void TileMap::initRenderData()
     
     if (verticesToPass.size() > 0)
     {
-        std::cout << "First Tile : " << verticesToPass[verticesToPass.front()] << verticesToPass[verticesToPass.front() + 1] << verticesToPass[verticesToPass.front() + 2] << std::endl;
+        //std::cout << "First Tile : " << verticesToPass[verticesToPass.front()] << verticesToPass[verticesToPass.front() + 1] << verticesToPass[verticesToPass.front() + 2] << std::endl;
         //std::cout << verticesToPass[2] << std::endl;
         glGenVertexArrays(1, &this->quadVAO);
         glGenBuffers(1, &VBO);
