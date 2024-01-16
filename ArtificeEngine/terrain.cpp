@@ -35,9 +35,16 @@ void terrain::genTerrain()
 			blocks[i][j].x = i + (64 * chunkID.x);
 			blocks[i][j].y = j + (64 * chunkID.y);
 
-			if (j + (64 * chunkID.y) <= height)
+			if (j + (64 * chunkID.y) <= height - 8)
 			{
-				blocks[i][j].tile = 4;
+				blocks[i][j].tile = 6; //Dirt
+			}else if (j + (64 * chunkID.y) <= height)
+			{
+				blocks[i][j].tile = 5; //Dirt
+			}
+			else if (j + (64 * chunkID.y) <= height+1)
+			{
+				blocks[i][j].tile = 4; //Grass
 			}
 
 			for (int k : *(blocks[i][j].returnVertex()))
@@ -62,9 +69,50 @@ terrain::~terrain()
 	delete blocks;
 }
 
-void terrain::render()
+
+
+std::vector<std::vector<glm::vec2>*>* terrain::getCollisionVertices()
 {
-	map->render();
+
+	std::vector<std::vector<glm::vec2>*>* ret = new std::vector<std::vector<glm::vec2>*>();
+	std::vector<glm::vec2>* island = new std::vector<glm::vec2>();
+	
+	glm::vec2* startTile=nullptr;
+	for (int i = 0; i < CHUNK_SIZE; i++)
+	{
+		startTile = nullptr;
+		for (int j = 0; j < CHUNK_SIZE; j++)
+		{
+			if (blocks[i][j].tile != 0) // If we're not in air
+			{
+				if (!startTile) // If we haven't started
+				{
+					startTile = new glm::vec2((float)(i + (64 * chunkID.x)), (float)(j + (64 * chunkID.y)));
+					island->push_back(*startTile - glm::vec2(0.5, 0.5)); //Add top-left corner
+					island->push_back(*startTile + glm::vec2(0.5, -0.5)); //Add top-right corner
+				}
+				
+
+
+			}
+			else
+			{
+				//IF START TILE THEN WE HAVE REACHED THE END OF THIS STRIP
+				if (startTile)
+				{
+					startTile = new glm::vec2((float)(i + (64 * chunkID.x)), (float)(j + (64 * chunkID.y)));
+					island->push_back(*startTile - glm::vec2(0.5, -0.5)); //Add bottom-left corner
+					island->push_back(*startTile + glm::vec2(0.5, 0.5)); //Add bottom-right corner
+					delete startTile; //start with new strip
+					ret->push_back(island); // Add it to the returns
+				}
+			}
+			
+		}
+		if (island->size()>0) ret->push_back(island);
+		
+	}
+	return ret;
 }
 
 void terrain::chunkUpdate()

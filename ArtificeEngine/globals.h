@@ -1,10 +1,12 @@
 #pragma once
 class node;
+class node2d;
 class world;
+class camera;
 
 //Game Engine
 extern node* currentScene;
-
+extern float frameTime;
 
 
 //OpenGL
@@ -13,3 +15,5 @@ extern double mouseY;
 
 //Game
 extern world* currentWorld;
+
+extern camera* currentCamera;

@@ -133,6 +133,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ArtificeEngine.cpp" />
+    <ClCompile Include="camera.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="globals.cpp" />
     <ClCompile Include="node.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="camera.h" />
     <ClInclude Include="FastNoiseLite.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="node.h" />

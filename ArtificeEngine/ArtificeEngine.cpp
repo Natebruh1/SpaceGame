@@ -11,16 +11,18 @@
 #include "sprite.h"
 #include "TileMap.h"
 #include "terrain.h"
+#include "camera.h"
 
 #include "ResourceManager.h"
 #include "Shader.h"
 #include "globals.h"
 #include <vector>
 #include <algorithm>
+#include <chrono>
 
 GLFWwindow* window;
 
-terrain* d;
+
 glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
 void init();
 
@@ -39,15 +41,22 @@ int main()
 {
     //Initialise
     init();
-    
+    std::chrono::steady_clock::time_point start;
+    std::chrono::steady_clock::time_point end;
+    std::chrono::duration<float> duration;
     while (!glfwWindowShouldClose(window))
     {
+        start = std::chrono::steady_clock::now();
         input(window);
         render();
         pollEvents();
 
         //Swap Back Buffers
         glfwSwapBuffers(window);
+        end = std::chrono::steady_clock::now();
+        duration = end - start;
+        frameTime = duration.count();
+        //std::cout << "FrameRate : " << 1 / frameTime << std::endl;
     }
     //No longer rendering
 
@@ -177,11 +186,7 @@ void input(GLFWwindow* currentContext)
     //Close the Window
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-    {
-        block b = { 1,0,4 };
-        d->blockUpdate(glm::ivec2(0, 0), b);
-    }
+    
       
 
     //Pass Input to children
@@ -191,10 +196,10 @@ void input(GLFWwindow* currentContext)
 
 void initGame()
 {
-    //Set the first scene
-    /*sprite* s = new sprite();
+    /*Set the first scene*/
+    sprite* s = new sprite();
     s->setTexture(ResourceManager::GetTexture("cat"));
-    s->position = glm::vec2(100.0, 100.0);*/
+    s->position = glm::vec2(100.0, 100.0);
 
 
     std::vector<terrain*> terrainMap(16);
@@ -217,24 +222,30 @@ void initGame()
     ;
     terrainMap[0]->position = glm::vec2(200.0, 200.0);
     currentScene = terrainMap[0];
+    
+    currentScene->add_child(currentCamera);
 }
 
 std::vector<node*>* GetSceneNodes()
 {
     std::vector<node*>* workingTree = new std::vector<node*>();
+
     std::vector<node*> searched;
     workingTree->push_back(currentScene);
     while (workingTree->size() != searched.size())
     {
-        for (auto n : *workingTree)
+        std::vector<node*> copyTree = *workingTree;
+        for (auto n : copyTree)
         {
-            if (std::find(searched.begin(), searched.end(), n) == searched.end())
+            if (n)
             {
-                std::vector<node*>* search = n->get_children();
-                workingTree->insert(workingTree->end(), search->begin(), search->end());
-                searched.push_back(n);
+                if (std::find(searched.begin(), searched.end(), n) == searched.end())
+                {
+                    std::vector<node*>* search = n->get_children();
+                    workingTree->insert(workingTree->end(), search->begin(), search->end());
+                    searched.push_back(n);
+                }
             }
-            
             
         }
         

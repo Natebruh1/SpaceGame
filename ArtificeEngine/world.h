@@ -14,8 +14,8 @@ public:
     std::vector<int>* genHeight(int x, int length);
 private:
     // Environment Details
-    int worldHeight = 128;
-    int worldFlatness = 8;
+    int worldHeight = 8;
+    int worldFlatness = 32;
 
     //Noises
     FastNoiseLite* HeightNoise = new FastNoiseLite(seed);

@@ -26,5 +26,9 @@ public:
     glm::vec2 getWorldPosition();
     glm::vec2 getWorldScale();
     float getWorldRotation();
+
+public:
+    node2d() {}
+    virtual ~node2d() {};
 };
 

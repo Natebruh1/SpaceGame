@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <glad/glad.h>
 #include <glm.hpp>
+#include <GLFW/glfw3.h>
 #include <gtc/matrix_transform.hpp>
 #include <iostream>
 #include <stdlib.h> 
@@ -42,6 +43,10 @@ public:
 	void set_parent(node* pRef);
 	virtual void update();
 
+
+
+	node() {}
+	~node() {};
 protected:
 	FunctionMap callMap{ {"render",&node::render},{"update",&node::update} };
 private:

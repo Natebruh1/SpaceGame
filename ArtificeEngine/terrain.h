@@ -43,7 +43,8 @@ public:
 
     ~terrain();
     block** blocks;
-    void render() override;
+    
+    std::vector<std::vector<glm::vec2>*>* getCollisionVertices();
     
     void chunkUpdate();
     void blockUpdate(glm::ivec2 coords, block b);

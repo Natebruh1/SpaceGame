@@ -2,7 +2,7 @@
 
 world::world()
 {
-    HeightNoise->SetFrequency(0.015);
+    HeightNoise->SetFrequency(2);
     //HeightNoise->SetFractalGain(.5f);
     HeightNoise->SetNoiseType(FastNoiseLite::NoiseType_Perlin);
 }
