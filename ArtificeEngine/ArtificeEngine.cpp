@@ -192,21 +192,31 @@ void input(GLFWwindow* currentContext)
 void initGame()
 {
     //Set the first scene
-    sprite* s = new sprite();
+    /*sprite* s = new sprite();
     s->setTexture(ResourceManager::GetTexture("cat"));
-    s->position = glm::vec2(100.0, 100.0);
+    s->position = glm::vec2(100.0, 100.0);*/
 
 
-    d = new terrain();
-    
-    currentScene = d;
-    d->position = glm::vec2(100.0, 100.0);
-    d->add_child(s);
-    
-    block b = { 1,0,0 };
-    d->blockUpdate(glm::ivec2(0, 0), b);
-    currentScene = d;
-    d->position = glm::vec2(200.0, 100.0);
+    std::vector<terrain*> terrainMap(16);
+    for (int i = 0; i < 16; i++)
+    {
+        switch (i % 2) {
+        case 0:
+            terrainMap[i] = new terrain((i / 2)-4, 0);
+            break;
+        case 1:
+            terrainMap[i] = new terrain(((i-1)/ 2)-4, -1);
+            break;
+        }
+        
+        if (i > 0)
+        {
+            terrainMap[0]->add_child(terrainMap[i]);
+        }
+    }
+    ;
+    terrainMap[0]->position = glm::vec2(200.0, 200.0);
+    currentScene = terrainMap[0];
 }
 
 std::vector<node*>* GetSceneNodes()

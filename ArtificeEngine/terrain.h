@@ -36,6 +36,11 @@ class terrain :
 {
 public:
     terrain();
+    terrain(int x, int y);
+    terrain(glm::ivec2 coords);
+
+    void genTerrain();
+
     ~terrain();
     block** blocks;
     void render() override;

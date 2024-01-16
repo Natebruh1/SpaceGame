@@ -8,13 +8,14 @@ class world :
 public:
     world();
     ~world();
-    int seed = 0;
+    int seed = 1;
     int genHeight(int x);
     std::vector<int>* genHeight(int x, std::vector<int>* map);
     std::vector<int>* genHeight(int x, int length);
 private:
     // Environment Details
-    int worldHeight = 60000;
+    int worldHeight = 128;
+    int worldFlatness = 8;
 
     //Noises
     FastNoiseLite* HeightNoise = new FastNoiseLite(seed);

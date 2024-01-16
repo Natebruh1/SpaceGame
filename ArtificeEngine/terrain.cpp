@@ -3,22 +3,39 @@
 terrain::terrain()
 {
 	chunkID = glm::ivec2(0, 0);
+	genTerrain();
+}
+
+terrain::terrain(int x, int y)
+{
+	chunkID = glm::ivec2(x, y);
+	genTerrain();
+}
+
+terrain::terrain(glm::ivec2 coords)
+{
+	chunkID = coords;
+	genTerrain();
+}
+
+void terrain::genTerrain()
+{
 	if (map) delete map;
 	map = new TileMap();
 	map->setTexture(ResourceManager::GetTexture("tiles"));
 	add_child(map);
-	blocks = new block*[CHUNK_SIZE];
+	blocks = new block * [CHUNK_SIZE];
 	std::vector<int>* vData = new std::vector<int>;
 	for (int i = 0; i < CHUNK_SIZE; i++)
 	{
 		blocks[i] = new block[CHUNK_SIZE];
-		int height = currentWorld->genHeight(i+(64*chunkID.x));
+		int height = currentWorld->genHeight(i + (64 * chunkID.x));
 		for (int j = 0; j < CHUNK_SIZE; j++)
 		{
-			blocks[i][j].x=i;
-			blocks[i][j].y = j;
+			blocks[i][j].x = i + (64 * chunkID.x);
+			blocks[i][j].y = j + (64 * chunkID.y);
 
-			if (j <= height)
+			if (j + (64 * chunkID.y) <= height)
 			{
 				blocks[i][j].tile = 4;
 			}
@@ -27,9 +44,9 @@ terrain::terrain()
 			{
 				vData->push_back(k);
 			}
-			
-			
-			
+
+
+
 		}
 	}
 	map->addVertex(vData);
