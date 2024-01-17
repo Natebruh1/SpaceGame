@@ -3,6 +3,10 @@ class node;
 class node2d;
 class world;
 class camera;
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
 
 //Game Engine
 extern node* currentScene;
@@ -17,3 +21,4 @@ extern double mouseY;
 extern world* currentWorld;
 
 extern camera* currentCamera;
+extern glm::mat4 projection;

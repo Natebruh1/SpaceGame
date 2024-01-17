@@ -58,6 +58,7 @@ void terrain::genTerrain()
 	}
 	map->addVertex(vData);
 	delete vData;
+	
 }
 
 terrain::~terrain()
@@ -71,10 +72,10 @@ terrain::~terrain()
 
 
 
-std::vector<std::vector<glm::vec2>*>* terrain::getCollisionVertices()
+std::vector<std::vector<glm::vec2>>* terrain::getCollisionVertices()
 {
-
-	std::vector<std::vector<glm::vec2>*>* ret = new std::vector<std::vector<glm::vec2>*>();
+	
+	std::vector<std::vector<glm::vec2>>* ret = new std::vector<std::vector<glm::vec2>>();
 	std::vector<glm::vec2>* island = new std::vector<glm::vec2>();
 	
 	glm::vec2* startTile=nullptr;
@@ -83,13 +84,24 @@ std::vector<std::vector<glm::vec2>*>* terrain::getCollisionVertices()
 		startTile = nullptr;
 		for (int j = 0; j < CHUNK_SIZE; j++)
 		{
-			if (blocks[i][j].tile != 0) // If we're not in air
+			block indexedBlock = blocks[i][j];
+			if (indexedBlock.tile != 0) // If we're not in air
 			{
 				if (!startTile) // If we haven't started
 				{
-					startTile = new glm::vec2((float)(i + (64 * chunkID.x)), (float)(j + (64 * chunkID.y)));
-					island->push_back(*startTile - glm::vec2(0.5, 0.5)); //Add top-left corner
-					island->push_back(*startTile + glm::vec2(0.5, -0.5)); //Add top-right corner
+					startTile = new glm::vec2((float)(i + (64 * chunkID.x))*16.f, (float)(j + (64 * chunkID.y))*16.f);
+					island->push_back(*startTile - glm::vec2(8, 8)); //Add top-left corner
+					//(*island)[0] = glm::vec2((*island)[0].x * projection[0][0], (*island)[0].y*projection[1][1]);
+					
+					//std::cout << (*island)[0].x << "|" << (*island)[0].y << " // ";
+
+
+					island->push_back(*startTile + glm::vec2(8, -8)); //Add top-right corner
+					//(*island)[1] = (*island)[1] * glm::vec2(projection[0][0], projection[1][1]);
+
+					//std::cout << (*island)[1].x << "|" << (*island)[1].y << std::endl;
+
+
 				}
 				
 
@@ -98,22 +110,39 @@ std::vector<std::vector<glm::vec2>*>* terrain::getCollisionVertices()
 			else
 			{
 				//IF START TILE THEN WE HAVE REACHED THE END OF THIS STRIP
-				if (startTile)
+				if (startTile!=nullptr)
 				{
-					startTile = new glm::vec2((float)(i + (64 * chunkID.x)), (float)(j + (64 * chunkID.y)));
-					island->push_back(*startTile - glm::vec2(0.5, -0.5)); //Add bottom-left corner
-					island->push_back(*startTile + glm::vec2(0.5, 0.5)); //Add bottom-right corner
+					startTile = new glm::vec2((float)(i + (64 * chunkID.x)) * 16.f, (float)(j + (64 * chunkID.y)) * 16.f);
+					island->push_back(*startTile - glm::vec2(8, -8)); //Add bottom-left corner
+					island->push_back(*startTile + glm::vec2(8, 8)); //Add bottom-right corner
+					
 					delete startTile; //start with new strip
-					ret->push_back(island); // Add it to the returns
+					startTile = nullptr;
+					ret->push_back(*island); // Add it to the returns
+					delete island;
+					island = new std::vector<glm::vec2>();
 				}
 			}
 			
 		}
-		if (island->size()>0) ret->push_back(island);
-		
+		if (island->size() > 0)
+		{
+			startTile = new glm::vec2((float)(i + (64 * chunkID.x)), (float)(63 + (64 * chunkID.y)));
+			island->push_back(*startTile - glm::vec2(8, -8)); //Add bottom-left corner
+			island->push_back(*startTile + glm::vec2(8, 8)); //Add bottom-right corner
+			ret->push_back(*island);
+			delete island;
+			island = new std::vector<glm::vec2>();
+		}
 	}
 	//Returns std::vector of std::vectors containing vertices from this terrain chunk -> These will be added to the collision map.
+	std::cout << ret->size() << std::endl;
 	return ret;
+}
+
+glm::vec2 terrain::getPosition()
+{
+	return glm::vec2(CHUNK_SIZE*(float)chunkID.x*16.f, CHUNK_SIZE * (float)chunkID.y*16.f);
 }
 
 void terrain::chunkUpdate()

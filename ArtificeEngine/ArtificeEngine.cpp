@@ -23,7 +23,7 @@
 GLFWwindow* window;
 
 
-glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
+
 void init();
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -201,10 +201,10 @@ void initGame()
     {
         switch (i % 2) {
         case 0:
-            terrainMap[i] = new terrain((i / 2)-4, 0);
+            terrainMap[i] = new terrain((i / 2), 0);
             break;
         case 1:
-            terrainMap[i] = new terrain(((i-1)/ 2)-4, -1);
+            terrainMap[i] = new terrain(((i-1)/ 2), -1);
             break;
         }
         
@@ -214,7 +214,7 @@ void initGame()
         }
     }
     ;
-    terrainMap[0]->position = glm::vec2(200.0, 200.0);
+    //terrainMap[0]->position = glm::vec2(200.0, 200.0);
     currentScene = terrainMap[0];
     
     currentScene->add_child(currentCamera);

@@ -1,6 +1,7 @@
 #pragma once
 #include "node2d.h"
 #include "world.h"
+#include "globals.h"
 
 #include <string>
 #include <map>
@@ -44,7 +45,8 @@ public:
     ~terrain();
     block** blocks;
     
-    std::vector<std::vector<glm::vec2>*>* getCollisionVertices();
+    std::vector<std::vector<glm::vec2>>* getCollisionVertices();
+    glm::vec2 getPosition();
     
     void chunkUpdate();
     void blockUpdate(glm::ivec2 coords, block b);
