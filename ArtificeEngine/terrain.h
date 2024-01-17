@@ -50,8 +50,9 @@ public:
     
     void chunkUpdate();
     void blockUpdate(glm::ivec2 coords, block b);
-private:
     TileMap* map;
+private:
+    
     glm::ivec2 chunkID=glm::ivec2(0,0);
 };
 

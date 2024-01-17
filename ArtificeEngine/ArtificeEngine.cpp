@@ -126,6 +126,9 @@ void init()
     ResourceManager::LoadTexture("testTiles.png", true, "tiles");
 
 
+
+    currentWorld = new world();
+    currentWorld->begin();
     initGame();
 }
 
@@ -196,26 +199,9 @@ void initGame()
     s->position = glm::vec2(100.0, 100.0);
 
 
-    std::vector<terrain*> terrainMap(16);
-    for (int i = 0; i < 16; i++)
-    {
-        switch (i % 2) {
-        case 0:
-            terrainMap[i] = new terrain((i / 2), 0);
-            break;
-        case 1:
-            terrainMap[i] = new terrain(((i-1)/ 2), -1);
-            break;
-        }
-        
-        if (i > 0)
-        {
-            terrainMap[0]->add_child(terrainMap[i]);
-        }
-    }
-    ;
+    
     //terrainMap[0]->position = glm::vec2(200.0, 200.0);
-    currentScene = terrainMap[0];
+    currentScene = currentWorld;
     
     currentScene->add_child(currentCamera);
 }
