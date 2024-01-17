@@ -139,18 +139,12 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    for (auto n : *GetSceneNodes())
-    {
-        n->input(key, scancode, action, mods);
-    }
+    currentScene->callInput(key, action);
 }
 
 void cursor_callback(GLFWwindow* window, int button, int action, int mods)
 {
-    for (auto n : *GetSceneNodes())
-    {
-        n->input(button,action,mods);
-    }
+    currentScene->callInput(button, action);
 }
 
 void render()

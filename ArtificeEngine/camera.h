@@ -9,6 +9,6 @@ public:
 	camera();
 	~camera();
 
-	void input(int key, int scancode, int action, int mods) override;
+	void move(int key, int action) override;
 };
 

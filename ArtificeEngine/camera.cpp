@@ -2,27 +2,37 @@
 
 camera::camera()
 {
+	ActionMap[GLFW_KEY_W] = &node::move;
+	ActionMap[GLFW_KEY_S] = &node::move;
+	ActionMap[GLFW_KEY_A] = &node::move;
+	ActionMap[GLFW_KEY_D] = &node::move;
 }
 
 camera::~camera()
 {
 }
 
-void camera::input(int key, int scancode, int action, int mods)
+void camera::move(int key, int action)
 {
-	switch (key) {
-		//Spectator Camera Controls
-	case GLFW_KEY_W:
-		if (action == GLFW_REPEAT || GLFW_PRESS) position.y += 3200.f*frameTime;
-		break;
-	case GLFW_KEY_S:
-		if (action == GLFW_REPEAT || GLFW_PRESS) position.y -= 3200.f * frameTime;
-		break;
-	case GLFW_KEY_A:
-		if (action == GLFW_REPEAT || GLFW_PRESS) position.x += 3200.f * frameTime;
-		break;
-	case GLFW_KEY_D:
-		if (action == GLFW_REPEAT || GLFW_PRESS) position.x -= 3200.f * frameTime;
-		break;
+	if (action == GLFW_REPEAT)
+	{
+		if (key == GLFW_KEY_A)
+		{
+			position += glm::vec2(3200.f, 0.f) * frameTime;
+		}
+		if (key == GLFW_KEY_D)
+		{
+			position -= glm::vec2(3200.f, 0.f) * frameTime;
+		}
+		if (key == GLFW_KEY_W)
+		{
+			position += glm::vec2(0.f, 3200.f) * frameTime;
+		}
+		if (key == GLFW_KEY_S)
+		{
+			position -= glm::vec2(0.f, 3200.f) * frameTime;
+		}
 	}
+	
 }
+

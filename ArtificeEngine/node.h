@@ -31,9 +31,11 @@ class node
 	//Non-Abstract
 public:
 	typedef std::map<std::string, void (node::*)()> FunctionMap;
+	typedef std::map<int, void (node::*)(int key, int Action)> InputMap;
 
 
 	void call(std::string referrable, bool forChildren=true);
+	void callInput(int key, int action, bool forChildren = true);
 	
 	//Adds a node* to the tree
 	void add_child(node* nRef);
@@ -49,6 +51,7 @@ public:
 	~node() {};
 protected:
 	FunctionMap callMap{ {"render",&node::render},{"update",&node::update} };
+	InputMap ActionMap;
 private:
 	//Private Information
 	std::vector<node*> children;
@@ -57,8 +60,11 @@ private:
 	//Abstract
 public:
 	virtual void render();
-	virtual void input(int key, int scancode, int action, int mods);
-	virtual void input(int button, int action, int mods);
+	
+
+public:
+	//Calls / InputCalls
+	virtual void move(int key, int action);
 	
 };
 

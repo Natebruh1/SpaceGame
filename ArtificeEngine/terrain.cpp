@@ -112,6 +112,7 @@ std::vector<std::vector<glm::vec2>*>* terrain::getCollisionVertices()
 		if (island->size()>0) ret->push_back(island);
 		
 	}
+	//Returns std::vector of std::vectors containing vertices from this terrain chunk -> These will be added to the collision map.
 	return ret;
 }
 

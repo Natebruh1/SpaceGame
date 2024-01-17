@@ -45,8 +45,13 @@ void TileMap::render()
     {
         //Update these to node2D variables
         glm::vec2 pos = getWorldPosition();
+        
         float rotate = getWorldRotation();
+        
         glm::vec2 size = getWorldScale();
+        pos += currentCamera->position;
+        rotate += currentCamera->rotation;
+        size *= currentCamera->scale;
 
 
         glm::vec3 color = glm::vec3(1.f, 1.f, 1.f);

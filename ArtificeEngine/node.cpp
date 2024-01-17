@@ -22,6 +22,28 @@ void node::call(std::string referrable, bool forChildren)
 	}
 }
 
+void node::callInput(int key, int action, bool forChildren)
+{
+	//Run call on children
+	if (forChildren)
+	{
+		for (auto& i : *get_children())
+		{
+			i->callInput(key,action);
+		}
+	}
+
+
+	auto it = ActionMap.find(key);
+	if (it != ActionMap.end())
+	{
+		//Key Found
+		//Call it
+		(this->*ActionMap[key])(key,action);
+
+	}
+}
+
 void node::add_child(node* nRef)
 {
 	std::vector<node*>::iterator it;
@@ -58,10 +80,7 @@ void node::render()
 {
 }
 
-void node::input(int key, int scancode, int action, int mods)
+void node::move(int key, int action)
 {
 }
 
-void node::input(int button, int action, int mods)
-{
-}

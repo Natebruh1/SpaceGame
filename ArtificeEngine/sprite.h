@@ -5,7 +5,7 @@
 #include <glad/glad.h>
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
-
+#include "camera.h"
 #include "texture.h"
 #include "shader.h"
 #include "node2d.h"

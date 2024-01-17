@@ -48,7 +48,11 @@ void sprite::render()
     float rotate = getWorldRotation();
     glm::vec2 size = glm::vec2( internalTexture->Width,internalTexture->Height ) * getWorldScale();
     
-    rotate = 0.f;
+    pos += currentCamera->position;
+    rotate += currentCamera->rotation;
+    size *= currentCamera->scale;
+
+    
     glm::vec3 color = glm::vec3(1.f,1.f,1.f);
 
     //Prepare the correct shader

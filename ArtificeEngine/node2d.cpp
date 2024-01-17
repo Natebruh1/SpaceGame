@@ -13,7 +13,7 @@ glm::vec2 node2d::getWorldPosition()
         //Go up the tree
         parentTrace = parentTrace->get_parent();
     }
-    total += currentCamera->position;
+    
     return total;
 }
 
@@ -30,7 +30,7 @@ glm::vec2 node2d::getWorldScale()
         //Go up the tree
         parentTrace = parentTrace->get_parent();
     }
-    total *= currentCamera->scale;
+    
     return total;
 }
 
@@ -48,6 +48,6 @@ float node2d::getWorldRotation()
         //Go up the tree
         parentTrace = parentTrace->get_parent();
     }
-    total += currentCamera->rotation;
+    
     return total;
 }

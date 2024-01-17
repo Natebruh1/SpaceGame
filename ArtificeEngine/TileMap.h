@@ -2,7 +2,7 @@
 
 #ifndef TILEMAP_RENDERER_H
 #define TILEMAP_RENDERER_H
-
+#include "camera.h"
 #include <glad/glad.h>
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
