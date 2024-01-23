@@ -38,6 +38,7 @@ public:
     void DeregisterDynamic(dynamic* obj);
 
     std::vector<terrain*> GetCurrentTerrainFromDynamic();
+    std::vector<terrain*> CurrentTerrainLoaded;
 private:
     // Environment Details
     int worldHeight = 8;
@@ -51,7 +52,7 @@ private:
 
     //For Functions
     std::vector<int>* generatedVector;
-
+    
     std::vector<dynamic*> worldDynamics;
 };
 

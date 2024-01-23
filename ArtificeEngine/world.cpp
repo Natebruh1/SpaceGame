@@ -44,7 +44,8 @@ std::vector<int>* world::genHeight(int x, int length)
 
 void world::render()
 {
-    for (auto t : GetCurrentTerrainFromDynamic())
+    CurrentTerrainLoaded = GetCurrentTerrainFromDynamic();
+    for (auto t : CurrentTerrainLoaded)
     {
         t->map->render();
     }
@@ -103,7 +104,7 @@ std::vector<terrain*> world::GetCurrentTerrainFromDynamic()
         {
 
 
-            for (int i = -2; i < 3; i++)
+            for (int i = -1; i < 3; i++)
             {
                 for (int j = -1; j < 1; j++)
                 {

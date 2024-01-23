@@ -22,3 +22,5 @@ extern world* currentWorld;
 
 extern camera* currentCamera;
 extern glm::mat4 projection;
+
+float Distance(glm::vec2 a, glm::vec2 b);

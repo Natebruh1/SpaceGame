@@ -18,3 +18,10 @@ world* currentWorld = nullptr;
 camera* currentCamera = new camera();
 
 glm::mat4 projection = glm::ortho(0.0f, 1280.0f, 720.0f, 0.0f, -1.0f, 1.0f);
+
+float Distance(glm::vec2 a, glm::vec2 b)
+{
+    float ret;
+    ret = ((a.x - b.x) * (a.x - b.x)) + ((a.y - b.y) * (a.y - b.y));
+    return ret;
+}

@@ -13,6 +13,7 @@
 #include "terrain.h"
 #include "camera.h"
 #include "dynamic.h"
+#include "character.h"
 
 #include "ResourceManager.h"
 #include "Shader.h"
@@ -23,7 +24,7 @@
 
 GLFWwindow* window;
 
-dynamic* testDynamic;
+character* testDynamic;
 
 void init();
 
@@ -54,7 +55,8 @@ int main()
 
         //Swap Back Buffers
         glfwSwapBuffers(window);
-        testDynamic->position = currentCamera->position;
+        //testDynamic->position = currentCamera->position;
+        testDynamic->update();
         end = std::chrono::steady_clock::now();
         duration = end - start;
         frameTime = duration.count();
@@ -206,7 +208,7 @@ void initGame()
     currentScene = currentWorld;
     
     currentScene->add_child(currentCamera);
-    testDynamic = new dynamic();
+    testDynamic = new character();
     currentWorld->RegisterDynamic(testDynamic);
 }
 
